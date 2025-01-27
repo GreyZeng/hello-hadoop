@@ -13,7 +13,7 @@ import java.net.URI;
  * @date 2025/01/27
  * @since 1.8
  */
-public class TestHDFS {
+public class HDFSApi {
     private static final String HDFS_URI = "hdfs://node01:8020";
     private static final String HDFS_USER = "root";
     public static FileSystem fs;
