@@ -17,18 +17,15 @@ public class HDFSApi {
     // node01要配置本地的host文件
     private static final String HDFS_URI = "hdfs://node01:8020";
     private static final String HDFS_USER = "root";
-    public static final FileSystem fs;
     public static final String DIR_PATH = "/" + System.currentTimeMillis();
-    public static final String FILE_1 = "test.txt";
-    public static final String NEW_FILE = "hello.txt";
-    public static final String LOCAL_PATH = "./data";
-    public static final String FILE_TO_HDFS = LOCAL_PATH + "/" + FILE_1;
-    public static final String FILE_ON_DIR_PATH = DIR_PATH + "/" + FILE_1;
-    public static final String FILE_NEW_NAME_ON_HDFS = DIR_PATH + "/" + NEW_FILE;
+    public static final String FILE_TO_HDFS = "./data/test.txt";
+    public static final String FILE_ON_DIR_PATH = DIR_PATH + "/test.txt";
+    public static final String FILE_NEW_NAME_ON_HDFS = DIR_PATH + "/hello.txt";
+    public static final FileSystem FS;
 
     static {
         try {
-            fs = FileSystem.get(URI.create(HDFS_URI), new Configuration(true), HDFS_USER);
+            FS = FileSystem.get(URI.create(HDFS_URI), new Configuration(true), HDFS_USER);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -60,18 +57,18 @@ public class HDFSApi {
         System.out.println("======清空所有文件后，清单为====");
         deleteHDFSFiles("/");
         listHDFSFiles("/");
-        fs.close();
+        FS.close();
     }
 
     // 创建目录
     private static void mkdirOnHDFS(String dirPath) throws IOException {
         Path path = new Path(dirPath);
-        if (fs.exists(path)) {
+        if (FS.exists(path)) {
             System.out.println("当前" + dirPath + "已经存在！");
             return;
         }
         //创建HDFS目录
-        boolean result = fs.mkdirs(path);
+        boolean result = FS.mkdirs(path);
         if (result) {
             System.out.println("创建" + dirPath + "成功！");
         } else {
@@ -82,15 +79,15 @@ public class HDFSApi {
 
     // 递归删除所有的文件和文件名
     private static void deleteHDFSFiles(String hdfsPath) throws IOException {
-        FileStatus[] fileStatuses = fs.listStatus(new Path(hdfsPath));
+        FileStatus[] fileStatuses = FS.listStatus(new Path(hdfsPath));
         for (FileStatus fileStatus : fileStatuses) {
-            fs.delete(fileStatus.getPath(), true);
+            FS.delete(fileStatus.getPath(), true);
         }
     }
 
     // 递归列出所有的文件和文件名
     private static void listHDFSFiles(String hdfsPath) throws IOException {
-        FileStatus[] fileStatuses = fs.listStatus(new Path(hdfsPath));
+        FileStatus[] fileStatuses = FS.listStatus(new Path(hdfsPath));
         for (FileStatus fileStatus : fileStatuses) {
             if (fileStatus.isDirectory()) {
                 listHDFSFiles(fileStatus.getPath().toString());
@@ -102,17 +99,17 @@ public class HDFSApi {
     // 写文件到hdfs
     private static void writeFileToHDFS(String localFilePath, String hdfsFilePath) throws IOException {
         Path path = new Path(hdfsFilePath);
-        if (fs.exists(path)) {
-            fs.delete(path, true);
+        if (FS.exists(path)) {
+            FS.delete(path, true);
         }
-        fs.copyFromLocalFile(false, true, new Path(localFilePath), path);
+        FS.copyFromLocalFile(false, true, new Path(localFilePath), path);
         System.out.println("上传文件成功！");
     }
 
     private static void readFileFromHDFS(String hdfsFilePath) throws IOException {
         //读取HDFS文件数据
         Path path = new Path(hdfsFilePath);
-        FSDataInputStream in = fs.open(path);
+        FSDataInputStream in = FS.open(path);
         BufferedReader br;
         br = new BufferedReader(new InputStreamReader(in));
         String newLine;
@@ -126,7 +123,7 @@ public class HDFSApi {
 
     private static void getHDFSFileInfos(String hdfsFilePath) throws IOException {
         Path path = new Path(hdfsFilePath);
-        RemoteIterator<LocatedFileStatus> listFilesIterator = fs.listFiles(path, true);
+        RemoteIterator<LocatedFileStatus> listFilesIterator = FS.listFiles(path, true);
         while (listFilesIterator.hasNext()) {
             LocatedFileStatus fileStatus = listFilesIterator.next();
             System.out.println("文件详细信息如下：");
@@ -149,7 +146,7 @@ public class HDFSApi {
     }
 
     private static void renameHDFSFile(String hdfsOldFileName, String hdfsNewFileName) throws IOException {
-        fs.rename(new Path(hdfsOldFileName), new Path(hdfsNewFileName));
+        FS.rename(new Path(hdfsOldFileName), new Path(hdfsNewFileName));
         System.out.println("重命名成功！");
     }
 }
