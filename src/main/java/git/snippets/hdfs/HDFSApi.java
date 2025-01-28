@@ -17,11 +17,14 @@ public class HDFSApi {
     // node01要配置本地的host文件
     private static final String HDFS_URI = "hdfs://node01:8020";
     private static final String HDFS_USER = "root";
-    public static FileSystem fs;
-    public static final String dirPath = "/" + System.currentTimeMillis();
-    public static final String file1 = "test.txt";
-    public static final String newFile = "hello.txt";
-    public static final String localPath = "./data";
+    public static final FileSystem fs;
+    public static final String DIR_PATH = "/" + System.currentTimeMillis();
+    public static final String FILE_1 = "test.txt";
+    public static final String NEW_FILE = "hello.txt";
+    public static final String LOCAL_PATH = "./data";
+    public static final String FILE_TO_HDFS = LOCAL_PATH + "/" + FILE_1;
+    public static final String FILE_ON_DIR_PATH = DIR_PATH + "/" + FILE_1;
+    public static final String FILE_NEW_NAME_ON_HDFS = DIR_PATH + "/" + NEW_FILE;
 
     static {
         try {
@@ -35,33 +38,28 @@ public class HDFSApi {
         deleteHDFSFiles("/");
         //查看HDFS路径文件
         listHDFSFiles("/");
-
-        mkdirOnHDFS(dirPath);
+        mkdirOnHDFS(DIR_PATH);
         System.out.println("======创建后的文件列表==========");
         listHDFSFiles("/");
         System.out.println("=============================");
-        final String fileToHDFS = localPath + "/" + file1;
-        final String fileOnDirPath = dirPath + "/" + file1;
-        System.out.println("上传" + fileToHDFS + "这个文件到" + fileOnDirPath);
-        writeFileToHDFS(fileToHDFS, fileOnDirPath);
-        System.out.println("上传" + fileToHDFS + "这个文件到" + fileOnDirPath + "之后，文件列表清单如下");
+        System.out.println("上传" + FILE_TO_HDFS + "这个文件到" + FILE_ON_DIR_PATH);
+        writeFileToHDFS(FILE_TO_HDFS, FILE_ON_DIR_PATH);
+        System.out.println("上传" + FILE_TO_HDFS + "这个文件到" + FILE_ON_DIR_PATH + "之后，文件列表清单如下");
         listHDFSFiles("/");
         System.out.println("=============================");
-        System.out.println("====读取" + fileOnDirPath + "中的内容==========");
-        readFileFromHDFS(fileOnDirPath);
-        final String fileNewNameOnHDFS = dirPath + "/" + newFile;
-        System.out.println("将" + fileOnDirPath + "重命名为：" + fileNewNameOnHDFS);
-        renameHDFSFile(fileOnDirPath, fileNewNameOnHDFS);
-        System.out.println("====读取" + fileNewNameOnHDFS + "中的内容==========");
-        readFileFromHDFS(fileNewNameOnHDFS);
-        System.out.println("获取" + fileNewNameOnHDFS + "中的元数据信息");
-        getHDFSFileInfos(fileNewNameOnHDFS);
+        System.out.println("====读取" + FILE_ON_DIR_PATH + "中的内容==========");
+        readFileFromHDFS(FILE_ON_DIR_PATH);
+        System.out.println("将" + FILE_ON_DIR_PATH + "重命名为：" + FILE_NEW_NAME_ON_HDFS);
+        renameHDFSFile(FILE_ON_DIR_PATH, FILE_NEW_NAME_ON_HDFS);
+        System.out.println("====读取" + FILE_NEW_NAME_ON_HDFS + "中的内容==========");
+        readFileFromHDFS(FILE_NEW_NAME_ON_HDFS);
+        System.out.println("获取" + FILE_NEW_NAME_ON_HDFS + "中的元数据信息");
+        getHDFSFileInfos(FILE_NEW_NAME_ON_HDFS);
         System.out.println("======现在的文件清单是=====");
         listHDFSFiles("/");
         System.out.println("======清空所有文件后，清单为====");
         deleteHDFSFiles("/");
         listHDFSFiles("/");
-
         fs.close();
     }
 
