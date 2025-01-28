@@ -33,7 +33,9 @@ public class HDFSApi {
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println("=====首先把所有数据清空=====");
         deleteHDFSFiles("/");
+        System.out.println("=====数据清空完毕====");
         //查看HDFS路径文件
         listHDFSFiles("/");
         mkdirOnHDFS(DIR_PATH);
