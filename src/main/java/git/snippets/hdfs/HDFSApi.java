@@ -18,7 +18,10 @@ public class HDFSApi {
     private static final String HDFS_URI = "hdfs://node01:8020";
     private static final String HDFS_USER = "root";
     public static FileSystem fs;
-
+    public static final String dirPath = "/" + System.currentTimeMillis();
+    public static final String file1 = "test.txt";
+    public static final String newFile = "hello.txt";
+    public static final String localPath = "./data";
 
     static {
         try {
@@ -32,10 +35,7 @@ public class HDFSApi {
         deleteHDFSFiles("/");
         //查看HDFS路径文件
         listHDFSFiles("/");
-        final String dirPath = "/" + System.currentTimeMillis();
-        final String file1 = "test.txt";
-        final String newFile = "hello.txt";
-        final String localPath = "./data";
+
         mkdirOnHDFS(dirPath);
         System.out.println("======创建后的文件列表==========");
         listHDFSFiles("/");
