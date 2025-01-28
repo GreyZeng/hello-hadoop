@@ -34,7 +34,7 @@ public class HDFSApi {
         listHDFSFiles("/");
         final String dirPath = "/" + System.currentTimeMillis();
         final String file1 = "test.txt";
-        final String file2 = "hello.txt";
+        final String newFile = "hello.txt";
         final String localPath = "./data";
         mkdirOnHDFS(dirPath);
         System.out.println("======创建后的文件列表==========");
@@ -49,7 +49,7 @@ public class HDFSApi {
         System.out.println("=============================");
         System.out.println("====读取" + fileOnDirPath + "中的内容==========");
         readFileFromHDFS(fileOnDirPath);
-        final String fileNewNameOnHDFS = dirPath + "/new" + file1;
+        final String fileNewNameOnHDFS = dirPath + "/" + newFile;
         System.out.println("将" + fileOnDirPath + "重命名为：" + fileNewNameOnHDFS);
         renameHDFSFile(fileOnDirPath, fileNewNameOnHDFS);
         System.out.println("====读取" + fileNewNameOnHDFS + "中的内容==========");
