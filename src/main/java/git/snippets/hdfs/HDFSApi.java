@@ -101,23 +101,6 @@ public class HDFSApi {
         }
     }
 
-    // 删除文件或者目录
-    private static void deleteFileOrDirFromHDFS(String hdfsFileOrDirPath) throws IOException {
-        //判断目录是否存在
-        Path path = new Path(hdfsFileOrDirPath);
-        if (!fs.exists(path)) {
-            System.out.println("HDFS目录或者文件不存在！");
-            return;
-        }
-        //删除文件或者目录
-        boolean result = fs.delete(path, true);
-        if (result) {
-            System.out.println("HDFS目录或者文件删除成功！");
-        } else {
-            System.out.println("HDFS目录或者文件删除失败！");
-        }
-    }
-
     // 写文件到hdfs
     private static void writeFileToHDFS(String localFilePath, String hdfsFilePath) throws IOException {
         Path path = new Path(hdfsFilePath);
