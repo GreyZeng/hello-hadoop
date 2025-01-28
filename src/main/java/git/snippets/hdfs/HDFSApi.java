@@ -12,6 +12,7 @@ import java.net.URI;
  * @author <a href="mailto:410486047@qq.com">Grey</a>
  * @date 2025/01/27
  * @since 1.8
+ * 伪分布式 HDFS Java API 测试
  */
 public class HDFSApi {
     // node01要配置本地的host文件
