@@ -31,7 +31,13 @@ public class HDFSApi {
     }
 
 
-    // 递归删除所有的文件和文件名
+    /**
+     * 递归删除所有的文件和文件名
+     *
+     * @param foldPath
+     * @return
+     * @throws IOException
+     */
     protected static boolean cleanHDFSFold(String foldPath) throws IOException {
         FileStatus[] fileStatuses;
         boolean result = true;
@@ -45,14 +51,26 @@ public class HDFSApi {
     }
 
 
-    // 创建目录
+    /**
+     * 创建目录
+     *
+     * @param dirPath
+     * @return
+     * @throws IOException
+     */
     protected static boolean mkdirOnHDFS(String dirPath) throws IOException {
         //创建HDFS目录
         return FS.mkdirs(new Path(dirPath));
     }
 
 
-    // 递归列出所有的文件和文件名
+    /**
+     * 递归列出所有的文件和文件名
+     *
+     * @param hdfsPath
+     * @return
+     * @throws IOException
+     */
     protected static List<String> listHDFSFiles(String hdfsPath) throws IOException {
         List<String> result = new ArrayList<>();
         FileStatus[] fileStatuses;
@@ -69,7 +87,14 @@ public class HDFSApi {
         return result;
     }
 
-    // 写文件到hdfs
+    /**
+     * 写文件到hdfs
+     *
+     * @param localFilePath
+     * @param hdfsFilePath
+     * @return
+     * @throws IOException
+     */
     protected static boolean writeFileToHDFS(String localFilePath, String hdfsFilePath) throws IOException {
         Path path = new Path(hdfsFilePath);
         if (FS.exists(path)) {
@@ -79,6 +104,13 @@ public class HDFSApi {
         return true;
     }
 
+    /**
+     * 从HDFS上读取文件内容
+     *
+     * @param hdfsFilePath
+     * @return
+     * @throws IOException
+     */
     protected static String readFileFromHDFS(String hdfsFilePath) throws IOException {
         //读取HDFS文件数据
         Path path = new Path(hdfsFilePath);
@@ -87,6 +119,7 @@ public class HDFSApi {
         br = new BufferedReader(new InputStreamReader(in));
         StringBuilder sb = new StringBuilder();
         String newLine;
+        // FIXME
         while ((newLine = br.readLine()) != null) {
             sb.append(newLine).append("\n");
         }
@@ -95,6 +128,12 @@ public class HDFSApi {
         return sb.toString();
     }
 
+    /**
+     * 获取文件的元信息
+     *
+     * @param hdfsFilePath
+     * @throws IOException
+     */
     protected static void getFileMetaData(String hdfsFilePath) throws IOException {
         Path path = new Path(hdfsFilePath);
         RemoteIterator<LocatedFileStatus> listFilesIterator = FS.listFiles(path, true);
@@ -106,21 +145,32 @@ public class HDFSApi {
             System.out.println("大小：" + fileStatus.getLen());
             System.out.println("块大小：" + fileStatus.getBlockSize());
             System.out.println("文件名：" + fileStatus.getPath().getName());
-
             //获取块的详情
             BlockLocation[] blockLocations = fileStatus.getBlockLocations();
             for (BlockLocation blockLocation : blockLocations) {
-
                 System.out.println("block信息：" + blockLocation);
             }
         }
 
     }
 
+    /**
+     * 重命名文件
+     *
+     * @param hdfsOldFileName
+     * @param hdfsNewFileName
+     * @return
+     * @throws IOException
+     */
     protected static boolean renameHDFSFile(String hdfsOldFileName, String hdfsNewFileName) throws IOException {
         return FS.rename(new Path(hdfsOldFileName), new Path(hdfsNewFileName));
     }
 
+    /**
+     * 关闭FS
+     *
+     * @throws IOException
+     */
     protected static void closeFS() throws IOException {
         FS.close();
     }

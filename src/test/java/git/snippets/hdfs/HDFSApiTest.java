@@ -8,6 +8,7 @@ import java.util.List;
 import static git.snippets.hdfs.HDFSApi.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayName("测试HDFS的相关API")
 class HDFSApiTest {
 
     public static final String DIR_PATH = "/" + System.currentTimeMillis();// 创建的目录地址
