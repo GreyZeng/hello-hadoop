@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>git.snippets.hdfs</groupId>
-    <artifactId>hello-hdfs</artifactId>
+    <artifactId>hello-hadoop</artifactId>
     <version>2.0</version>
 
     <properties>
