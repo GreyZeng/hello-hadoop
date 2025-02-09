@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * MapReduce任务的驱动类
  * 可以配置任务执行的参数
- * Mapper、Redcuer、分区、分组相关信息
+ * Mapper、Reducer、分区、分组相关信息
  */
 public class WordCountDriver {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
@@ -36,7 +36,8 @@ public class WordCountDriver {
         //5.设置最终输出数据的key,value类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-
+        // 设置reduce task个数，默认是一个，我们可以设置多个，最后生成的output文件就有多个
+        job.setNumReduceTasks(2);
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/data.txt"));
         FileOutputFormat.setOutputPath(job, new Path("./data/output"));
