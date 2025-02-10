@@ -9,8 +9,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
-// FIXME
-// 运行报错，一直卡住没反应
+
 public class ScoreDriver {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         //1.创建配置及job对象

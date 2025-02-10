@@ -32,8 +32,8 @@ class MyRecordWriter extends RecordWriter<StudentInfo,NullWritable>{
         //创建FileSystem
         FileSystem fileSystem = FileSystem.get(context.getConfiguration());
         //创建输出流 - 针对写出的不同文件都要创建 ，pass.txt ,fail.txt
-        passOutputStream = fileSystem.create(new Path("C:\\data\\pass.txt"));
-        failOutputStream = fileSystem.create(new Path("C:\\data\\fail.txt"));
+        passOutputStream = fileSystem.create(new Path("./tmp/output11/pass.txt"));
+        failOutputStream = fileSystem.create(new Path("./tmp/output11/fail.txt"));
     }
 
     //将数据写出到文件
