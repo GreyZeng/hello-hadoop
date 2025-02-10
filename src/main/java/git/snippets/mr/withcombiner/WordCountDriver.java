@@ -16,6 +16,7 @@ import java.io.IOException;
  * Mapper、Reducer、分区、分组相关信息
  */
 public class WordCountDriver {
+    // 预先聚合操作，wordcount适合，但是有一些场景不太适合，例如求平均数
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         //1.创建配置及job对象
         Configuration conf = new Configuration(false);
