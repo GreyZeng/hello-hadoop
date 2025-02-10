@@ -32,7 +32,7 @@ public class CarAnalyDriver {
 
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job,new Path("data/cardata.txt"));
-        FileOutputFormat.setOutputPath(job,new Path("./data/output1"));
+        FileOutputFormat.setOutputPath(job,new Path("./tmp/output1"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);

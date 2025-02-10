@@ -40,7 +40,7 @@ public class WordCountDriver {
         job.setNumReduceTasks(2);
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/data.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("./data/output"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);

@@ -1,5 +1,4 @@
-data/output
-data/output1
+tmp/
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
