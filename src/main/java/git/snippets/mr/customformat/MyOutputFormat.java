@@ -2,6 +2,7 @@ package git.snippets.mr.customformat;
 
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.LocalFileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.io.NullWritable;
@@ -24,26 +25,28 @@ public class MyOutputFormat extends FileOutputFormat<StudentInfo, NullWritable> 
 /**
  * RecoreWriter 实现将Reducer 输出的 k,v 写出
  */
-class MyRecordWriter extends RecordWriter<StudentInfo,NullWritable>{
+class MyRecordWriter extends RecordWriter<StudentInfo, NullWritable> {
 
     FSDataOutputStream passOutputStream;
     FSDataOutputStream failOutputStream;
+
     public MyRecordWriter(TaskAttemptContext context) throws IOException {
         //创建FileSystem
-        FileSystem fileSystem = FileSystem.get(context.getConfiguration());
+        FileSystem fileSystem = LocalFileSystem.getLocal(context.getConfiguration());
         //创建输出流 - 针对写出的不同文件都要创建 ，pass.txt ,fail.txt
-        passOutputStream = fileSystem.create(new Path("file:///./tmp/output11/pass.txt"));
-        failOutputStream = fileSystem.create(new Path("file:///./tmp/output11/fail.txt"));
+        long fold = System.currentTimeMillis();
+        passOutputStream = fileSystem.create(new Path("./tmp/" + fold + "/pass.txt"));
+        failOutputStream = fileSystem.create(new Path("./tmp/" + fold + "/fail.txt"));
     }
 
     //将数据写出到文件
     @Override
     public void write(StudentInfo key, NullWritable value) throws IOException, InterruptedException {
         int score = key.getScore();
-        if(score >=80){
-            passOutputStream.writeBytes(score+"\n");
-        }else{
-            failOutputStream.writeBytes(score+"\n");
+        if (score >= 80) {
+            passOutputStream.writeBytes(score + "\n");
+        } else {
+            failOutputStream.writeBytes(score + "\n");
         }
 
     }
@@ -52,7 +55,7 @@ class MyRecordWriter extends RecordWriter<StudentInfo,NullWritable>{
     @Override
     public void close(TaskAttemptContext context) throws IOException, InterruptedException {
         //关闭流对象
-        IOUtils.closeStreams(passOutputStream,failOutputStream);
+        IOUtils.closeStreams(passOutputStream, failOutputStream);
 
     }
 }
