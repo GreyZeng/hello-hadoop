@@ -31,15 +31,21 @@ public class OrderDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
 
+        //设置使用自定义分区器
+        job.setPartitionerClass(OrderPartitioner.class);
+
+        //设置reduce task 个数
+        job.setNumReduceTasks(3);
+
         //6.设置数据输入和输出路径
-        FileInputFormat.setInputPaths(job,new Path("./data/orderdata.txt"));
-        FileOutputFormat.setOutputPath(job,new Path("./tmp/output6"));
+        FileInputFormat.setInputPaths(job, new Path("./data/orderdata.txt"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/output7"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);
-        if(success){
+        if (success) {
             System.out.println("任务执行成功！");
-        }else{
+        } else {
             System.out.println("任务执行失败！");
         }
 

@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class OrderMapper extends Mapper<LongWritable, Text,Order,Text> {
+public class OrderMapper extends Mapper<LongWritable, Text, Order,Text> {
     //创建Order对象
     Order order = new Order();
     @Override
