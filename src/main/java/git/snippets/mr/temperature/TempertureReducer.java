@@ -4,9 +4,6 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class TempertureReducer extends Reducer<Temperature, Temperature, Temperature, NullWritable> {
     @Override

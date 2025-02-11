@@ -1,6 +1,6 @@
 Hello World
-This is a test file for WordCount
-WordCount is a simple example in Hadoop
-Hadoop is a powerful framework for big data processing
+This is a test file for 天空 WordCount
+WordCount is a 它 simple 什么 example in Hadoop
+Hadoop is a 我 powerful framework for big data processing
 Hello Hadoop
-Hello World
+Hello World 我
