@@ -1,5 +1,6 @@
 package git.snippets.mr.custompartition;
 
+import git.snippets.mr.LocalConfigJob;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -18,8 +19,7 @@ import java.io.IOException;
 public class WordCountDriver {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         //1.创建配置及job对象
-        Configuration conf = new Configuration(false);
-        Job job = Job.getInstance(conf);
+        Job job = LocalConfigJob.getLocalJob();
 
         //2.设置Driver驱动类
         job.setJarByClass(WordCountDriver.class);

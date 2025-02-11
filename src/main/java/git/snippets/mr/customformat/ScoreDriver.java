@@ -1,5 +1,6 @@
 package git.snippets.mr.customformat;
 
+import git.snippets.mr.LocalConfigJob;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
@@ -13,10 +14,8 @@ import java.io.IOException;
 public class ScoreDriver {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         //1.创建配置及job对象
-        Configuration conf = new Configuration(false);
-        conf.set("mapreduce.framework.name", "local"); // 使用本地模式
-        conf.set("fs.defaultFS", "file:///"); // 使用本地文件系统
-        Job job = Job.getInstance(conf);
+        //1.创建配置及job对象
+        Job job = LocalConfigJob.getLocalJob();
 
         //2.设置Driver驱动类
         job.setJarByClass(ScoreDriver.class);
