@@ -1,6 +1,6 @@
-hello zhangsan
-hello lisi
-hello zhangsan
-hello wangwu
-lisi
-hello zhangsan
+Hello World
+This is a test file for WordCount
+WordCount is a simple example in Hadoop
+Hadoop is a powerful framework for big data processing
+Hello Hadoop
+Hello World
