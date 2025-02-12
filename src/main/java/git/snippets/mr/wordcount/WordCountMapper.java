@@ -18,6 +18,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 
     @Override
     protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, IntWritable>.Context context) throws IOException, InterruptedException {
+        System.out.println(key + " " + value);
         //hello zhangsan
         String line = value.toString();
         //切分单词
