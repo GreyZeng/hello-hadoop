@@ -1,6 +1,6 @@
 package git.snippets.mr.join;
 
-import org.apache.hadoop.io.Writable;
+
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;

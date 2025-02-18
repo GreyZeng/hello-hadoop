@@ -1,7 +1,6 @@
-package git.snippets.mr.customorder;
+package git.snippets.mr.d_customsort;
 
 import git.snippets.mr.LocalConfigJob;
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -39,7 +38,7 @@ public class OrderDriver {
 
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/orderdata.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("./tmp/output7"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/custombean/" + System.currentTimeMillis() + "/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);
@@ -48,7 +47,5 @@ public class OrderDriver {
         } else {
             System.out.println("任务执行失败！");
         }
-
     }
-
 }

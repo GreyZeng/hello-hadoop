@@ -1,4 +1,4 @@
-package git.snippets.mr.customorder;
+package git.snippets.mr.d_customsort;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;

@@ -1,6 +1,8 @@
-package git.snippets.mr.withcombiner;
+package git.snippets.mr.e_combiner;
 
 import git.snippets.mr.LocalConfigJob;
+import git.snippets.mr.a_wordcount.WordCountMapper;
+import git.snippets.mr.a_wordcount.WordCountReducer;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -11,9 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.IOException;
 
 /**
- * MapReduce任务的驱动类
- * 可以配置任务执行的参数
- * Mapper、Reducer、分区、分组相关信息
+ * Combiner是一个可选的优化步骤，在Map任务输出结果后、Reduce输入前执行。其作用是对Map任务的输出进行局部合并，将具有相同键的键值对合并为一个，以减少需要传输到Reduce节点的数据量，降低网络开销，并提高整体性能。
  */
 public class WordCountDriver {
     // 预先聚合操作，wordcount适合，但是有一些场景不太适合，例如求平均数
@@ -36,11 +36,11 @@ public class WordCountDriver {
         job.setOutputValueClass(IntWritable.class);
 
         //设置map 端的combiner 本质就是WoundCountReducer
-        job.setCombinerClass(MyCombiner.class);
+        job.setCombinerClass(WordCountReducer.class);
 
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/data.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("./tmp/" + System.currentTimeMillis() + "/output8"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/combiner/" + System.currentTimeMillis() + "/output8"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);

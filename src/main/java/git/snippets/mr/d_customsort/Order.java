@@ -1,4 +1,4 @@
-package git.snippets.mr.customorder;
+package git.snippets.mr.d_customsort;
 
 import org.apache.hadoop.io.WritableComparable;
 
@@ -7,12 +7,12 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * 自定义类 ，实现 WritableComparable 接口
+ * 自定义Bean对象排序案例，需要实现 WritableComparable 接口
  */
 public class Order implements WritableComparable<Order> {
-    public Order() {
+/*    public Order() {
 
-    }
+    }*/
 
     //1001	2024-03-10	商品A	2	100
     private String orderId;
@@ -63,13 +63,7 @@ public class Order implements WritableComparable<Order> {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderId='" + orderId + '\'' +
-                ", dt='" + dt + '\'' +
-                ", productName='" + productName + '\'' +
-                ", amount=" + amount +
-                ", totalCost=" + totalCost +
-                '}';
+        return "Order{" + "orderId='" + orderId + '\'' + ", dt='" + dt + '\'' + ", productName='" + productName + '\'' + ", amount=" + amount + ", totalCost=" + totalCost + '}';
     }
 
     @Override
@@ -94,20 +88,13 @@ public class Order implements WritableComparable<Order> {
     //实现按照花费金额降序排序
     @Override
     public int compareTo(Order o) {
-        if(this.totalCost > o.totalCost){
+        if (this.totalCost > o.totalCost) {
             return -1;
-        }else if(this.totalCost < o.totalCost){
+        } else if (this.totalCost < o.totalCost) {
             return 1;
-        }else{
+        } else {
             //如果两个order 价格相等，按照数量降序排序
-            if(this.amount > o.amount){
-                return -1;
-            }else if(this.amount < o.amount){
-                return 1;
-            }else {
-                return 0;
-            }
-
+            return Integer.compare(o.amount, this.amount);
         }
     }
 }
