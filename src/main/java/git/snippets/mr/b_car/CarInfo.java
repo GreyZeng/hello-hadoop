@@ -1,4 +1,4 @@
-package git.snippets.mr.car;
+package git.snippets.mr.b_car;
 
 import org.apache.hadoop.io.Writable;
 
@@ -7,21 +7,22 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class CarInfo implements Writable {
-    //空构造
-    public CarInfo() {
-    }
+//    //空构造
+//	// 这个是必须的，否则会报错
+//    public CarInfo() {
+//    }
 
     //属性
-    private String car;
+    private String carNum;
     private Double avgSpeed;
     private Double totalKm;
 
-    public String getCar() {
-        return car;
+    public String getCarNum() {
+        return carNum;
     }
 
-    public void setCar(String car) {
-        this.car = car;
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
     }
 
     public Double getAvgSpeed() {
@@ -44,7 +45,7 @@ public class CarInfo implements Writable {
 
     @Override
     public String toString() {
-        return "car='" + car + '\'' +
+        return "carNum='" + carNum + '\'' +
                 ", avgSpeed=" + avgSpeed +
                 ", totalKm=" + totalKm ;
     }
@@ -52,7 +53,7 @@ public class CarInfo implements Writable {
     //序列化数据
     @Override
     public void write(DataOutput out) throws IOException {
-        out.writeUTF(car);
+        out.writeUTF(carNum);
         out.writeDouble(avgSpeed);
         out.writeDouble(totalKm);
     }
@@ -60,7 +61,7 @@ public class CarInfo implements Writable {
     //反序列化数据
     @Override
     public void readFields(DataInput in) throws IOException {
-        this.car = in.readUTF();
+        this.carNum = in.readUTF();
         this.avgSpeed = in.readDouble();
         this.totalKm = in.readDouble();
     }

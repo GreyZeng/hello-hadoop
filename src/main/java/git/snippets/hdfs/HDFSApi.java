@@ -17,7 +17,7 @@ import java.util.List;
  * 伪分布式 HDFS Java API 测试
  */
 public class HDFSApi {
-    // node01要配置本地的host文件
+    // mycluster要配置本地的host文件
     private static final String HDFS_URI = "hdfs://mycluster:8020";
     private static final String HDFS_USER = "root";
     public static final FileSystem FS;

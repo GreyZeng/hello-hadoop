@@ -1,4 +1,4 @@
-package git.snippets.mr.custompartition;
+package git.snippets.mr.a_wordcount;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -7,30 +7,25 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
+import static org.apache.commons.lang3.StringUtils.SPACE;
+
 /**
  * Mapper
  * 自定义类继承Mapper抽象类，实现map方法
  */
-public class WordCountMapper extends Mapper<LongWritable, Text,Text, IntWritable> {
+public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     Text returnKey = new Text();
     IntWritable returnValue = new IntWritable(1);
 
     @Override
     protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, IntWritable>.Context context) throws IOException, InterruptedException {
-        //hello zhangsan
         String line = value.toString();
-
-        //切分单词
-        String[] words = line.split(" ");
-
-        //写出数据
+        String[] words = line.split(SPACE);
         for (String word : words) {
             returnKey.set(word);
-            //k,v : word,1
-            context.write(returnKey,returnValue);
+            // 在不去重的基础上，每个单词的数量都记录为1，待mapper阶段再合并
+            context.write(returnKey, returnValue);
         }
-
-
     }
 }
