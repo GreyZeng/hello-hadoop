@@ -1,4 +1,4 @@
-package git.snippets.mr.customformat;
+package git.snippets.mr.g_customformat;
 
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -35,8 +35,8 @@ class MyRecordWriter extends RecordWriter<StudentInfo, NullWritable> {
         FileSystem fileSystem = LocalFileSystem.getLocal(context.getConfiguration());
         //创建输出流 - 针对写出的不同文件都要创建 ，pass.txt ,fail.txt
         long fold = System.currentTimeMillis();
-        passOutputStream = fileSystem.create(new Path("./tmp/" + fold + "/pass.txt"));
-        failOutputStream = fileSystem.create(new Path("./tmp/" + fold + "/fail.txt"));
+        passOutputStream = fileSystem.create(new Path("./tmp/customformat_out/" + fold + "/pass.txt"));
+        failOutputStream = fileSystem.create(new Path("./tmp/customformat_out/" + fold + "/fail.txt"));
     }
 
     //将数据写出到文件
@@ -48,7 +48,6 @@ class MyRecordWriter extends RecordWriter<StudentInfo, NullWritable> {
         } else {
             failOutputStream.writeBytes(score + "\n");
         }
-
     }
 
     //关闭资源-关闭写出的流对象
@@ -56,6 +55,5 @@ class MyRecordWriter extends RecordWriter<StudentInfo, NullWritable> {
     public void close(TaskAttemptContext context) throws IOException, InterruptedException {
         //关闭流对象
         IOUtils.closeStreams(passOutputStream, failOutputStream);
-
     }
 }

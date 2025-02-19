@@ -1,5 +1,4 @@
-package git.snippets.mr.customformat;
-
+package git.snippets.mr.g_customformat;
 
 
 import org.apache.hadoop.io.WritableComparable;
@@ -9,8 +8,8 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class StudentInfo implements WritableComparable<StudentInfo> {
-    public StudentInfo() {
-    }
+    /*    public StudentInfo() {
+        }*/
     private String name;
     private int score;
 
@@ -53,13 +52,6 @@ public class StudentInfo implements WritableComparable<StudentInfo> {
 
     @Override
     public int compareTo(StudentInfo o) {
-        if(this.score > o.score){
-            return -1;
-        }else if(this.score <o.score){
-            return 1;
-        }else{
-            return 0;
-        }
-
+        return Integer.compare(o.score, this.score);
     }
 }

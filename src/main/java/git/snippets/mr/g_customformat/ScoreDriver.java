@@ -1,4 +1,4 @@
-package git.snippets.mr.customformat;
+package git.snippets.mr.g_customformat;
 
 import git.snippets.mr.LocalConfigJob;
 import org.apache.hadoop.fs.Path;
@@ -37,7 +37,7 @@ public class ScoreDriver {
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/scoredata.txt"));
         //将写出数据成功的标志文件写出到该目录
-        FileOutputFormat.setOutputPath(job, new Path("./tmp/output11"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/customreformat/" + System.currentTimeMillis() + "/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);
