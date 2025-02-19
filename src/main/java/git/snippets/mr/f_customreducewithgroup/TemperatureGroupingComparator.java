@@ -1,5 +1,6 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreducewithgroup;
 
+import git.snippets.mr.f_customreduceorderwithpartitioner.Temperature;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
@@ -20,12 +21,10 @@ public class TemperatureGroupingComparator extends WritableComparator {
         //相同年月数据放在一起
         Temperature a1 = (Temperature) a;
         Temperature b1 = (Temperature) b;
-
         int yearCompare = a1.getYear().compareTo(b1.getYear());
         if (yearCompare == 0) {
             return a1.getMonth().compareTo(b1.getMonth());
         }
         return yearCompare;
-
     }
 }

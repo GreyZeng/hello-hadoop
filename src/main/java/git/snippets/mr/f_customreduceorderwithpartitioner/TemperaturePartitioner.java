@@ -1,4 +1,4 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreduceorderwithpartitioner;
 
 import org.apache.hadoop.mapreduce.Partitioner;
 
@@ -9,6 +9,6 @@ public class TemperaturePartitioner extends Partitioner<Temperature, Temperature
     @Override
     public int getPartition(Temperature key, Temperature value, int numPartitions) {
         String ym = key.getYear() + "-" + key.getMonth();
-        return (ym.hashCode() & Integer.MAX_VALUE)%numPartitions;
+        return (ym.hashCode() & Integer.MAX_VALUE) % numPartitions;
     }
 }

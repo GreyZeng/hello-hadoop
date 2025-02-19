@@ -1,4 +1,4 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreduceorderwithpartitioner;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;

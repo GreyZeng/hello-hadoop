@@ -1,4 +1,4 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreduceorderwithpartitioner;
 
 import org.apache.hadoop.io.WritableComparable;
 
@@ -7,8 +7,8 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class Temperature implements WritableComparable<Temperature> {
-    public Temperature() {
-    }
+    /*    public Temperature() {
+        }*/
     //2024-06-01	31
     private String year;
     private String month;
@@ -49,12 +49,7 @@ public class Temperature implements WritableComparable<Temperature> {
 
     @Override
     public String toString() {
-        return "Temperature{" +
-                "year='" + year + '\'' +
-                ", month='" + month + '\'' +
-                ", day='" + day + '\'' +
-                ", temp=" + temp +
-                '}';
+        return "Temperature{" + "year='" + year + '\'' + ", month='" + month + '\'' + ", day='" + day + '\'' + ", temp=" + temp + '}';
     }
 
     @Override
@@ -78,11 +73,9 @@ public class Temperature implements WritableComparable<Temperature> {
     public int compareTo(Temperature o) {
         int yearCompare = this.getYear().compareTo(o.getYear());
         int monthCompare = this.getMonth().compareTo(o.getMonth());
-
-        if(yearCompare == 0 ){
-            if(monthCompare == 0){
-                //比较温度，降序排序
-                return this.getTemp() >o.getTemp() ?-1:1;
+        if (yearCompare == 0) {
+            if (monthCompare == 0) {
+                return this.getTemp() > o.getTemp() ? -1 : 1;
             }
             return monthCompare;
         }

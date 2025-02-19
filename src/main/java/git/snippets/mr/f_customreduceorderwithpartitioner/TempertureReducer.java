@@ -1,4 +1,4 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreduceorderwithpartitioner;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -16,7 +16,6 @@ public class TempertureReducer extends Reducer<Temperature, Temperature, Tempera
                 day = next.getDay();
                 cnt += 1;
             }
-
             if (cnt != 0 && !day.equals(next.getDay())) {
                 context.write(key, NullWritable.get());
                 break;

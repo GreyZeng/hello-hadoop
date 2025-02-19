@@ -1,6 +1,10 @@
-package git.snippets.mr.temperature;
+package git.snippets.mr.f_customreducewithgroup;
 
 import git.snippets.mr.LocalConfigJob;
+import git.snippets.mr.f_customreduceorderwithpartitioner.Temperature;
+import git.snippets.mr.f_customreduceorderwithpartitioner.TemperatureMapper;
+import git.snippets.mr.f_customreduceorderwithpartitioner.TemperaturePartitioner;
+import git.snippets.mr.f_customreduceorderwithpartitioner.TempertureReducer;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Job;
@@ -31,10 +35,6 @@ public class TemperatureDriver {
         //5.设置最终输出数据的key,value类型
         job.setOutputKeyClass(Temperature.class);
         job.setOutputValueClass(NullWritable.class);
-
-        //设置自定义分区器
-        job.setPartitionerClass(TemperaturePartitioner.class);
-
         //设置ReduceTask 个数
         job.setNumReduceTasks(3);
 
@@ -43,7 +43,7 @@ public class TemperatureDriver {
 
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/temperatureData.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("./tmp/output10"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/customreducewithgroup/" + System.currentTimeMillis() + "/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);
