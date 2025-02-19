@@ -21,9 +21,6 @@ public class TempertureReducer extends Reducer<Temperature, Temperature, Tempera
                 context.write(key, NullWritable.get());
                 break;
             }
-
         }
-
-
     }
 }
