@@ -9,10 +9,13 @@
     <version>2.0</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
         <hadoop.version>3.4.1</hadoop.version>
         <slf4j.version>2.1.0-alpha1</slf4j.version>
         <log4j.version>3.0.0-beta2</log4j.version>
@@ -50,4 +53,33 @@
             <version>${log4j.version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins> <!-- 插件配置 -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId> <!-- Maven Assembly 插件 -->
+                <version>3.7.1</version> <!-- 使用的插件版本 -->
+                <configuration> <!-- 插件配置 -->
+                    <!-- 设置 false 后会去掉生成的 Jar 文件名后缀中的 "-jar-with-dependencies" -->
+                    <!--<appendAssemblyId>false</appendAssemblyId>-->
+                    <descriptorRefs> <!-- 指定使用的 assembly 描述符 -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef> <!-- 使用的是带依赖项的描述符 -->
+                    </descriptorRefs>
+                    <archive> <!-- 归档配置 -->
+                        <manifest> <!-- MANIFEST.MF 文件配置 -->
+                            <mainClass>git.snippets.mr.j_runbyyarn.WordCountDriver</mainClass> <!-- 指定主类 -->
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions> <!-- 插件执行配置 -->
+                    <execution>
+                        <id>make-assembly</id> <!-- 执行的 ID -->
+                        <phase>package</phase> <!-- 在 Maven 构建的 package 阶段执行 -->
+                        <goals> <!-- 执行的目标 -->
+                            <goal>single</goal> <!-- 执行 assembly 目标 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
