@@ -10,6 +10,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
+/**
+ * 在mapper端实现join
+ */
 public class MapJoinDriver {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
         //1.创建配置及job对象
@@ -34,7 +37,7 @@ public class MapJoinDriver {
 
         //6.设置数据输入和输出路径
         FileInputFormat.setInputPaths(job, new Path("./data/persondata.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("./tmp/" + System.currentTimeMillis()));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/mapjoin/" + System.currentTimeMillis() + "/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);

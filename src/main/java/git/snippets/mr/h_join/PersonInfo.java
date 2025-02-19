@@ -1,4 +1,4 @@
-package git.snippets.mr.join;
+package git.snippets.mr.h_join;
 
 
 import org.apache.hadoop.io.WritableComparable;
@@ -12,6 +12,7 @@ public class PersonInfo implements WritableComparable<PersonInfo> {
     public PersonInfo() {
 
     }
+
     private String id;
     private String name;
     private int age;
@@ -68,12 +69,7 @@ public class PersonInfo implements WritableComparable<PersonInfo> {
 
     @Override
     public String toString() {
-        return "PersonInfo{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                '}';
+        return "PersonInfo{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", age=" + age + ", address='" + address + '\'' + '}';
     }
 
     @Override
@@ -87,11 +83,11 @@ public class PersonInfo implements WritableComparable<PersonInfo> {
 
     @Override
     public void readFields(DataInput in) throws IOException {
-         this.id = in.readUTF();
-         this.name = in.readUTF();
-         this.age = in.readInt();
-         this.address = in.readUTF();
-         this.flag = in.readUTF();
+        this.id = in.readUTF();
+        this.name = in.readUTF();
+        this.age = in.readInt();
+        this.address = in.readUTF();
+        this.flag = in.readUTF();
     }
 
     @Override

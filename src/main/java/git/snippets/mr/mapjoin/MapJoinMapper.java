@@ -6,7 +6,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
@@ -18,22 +17,21 @@ public class MapJoinMapper extends Mapper<LongWritable, Text, Text, NullWritable
 
     //job.addCacheFile(new Path("data/addressdata.txt").toUri());
 
-    Map<String, String> addreddMap = new HashMap<String, String>();
+    Map<String, String> addressMap = new HashMap<>();
 
-    //在map方法调用前执行
+    //在map方法调用前执行，先把addressMap初始化好
     @Override
     protected void setup(Mapper<LongWritable, Text, Text, NullWritable>.Context context) throws IOException, InterruptedException {
         URI[] files = context.getCacheFiles();
-        if (files != null && files.length > 0) {
+        if (files != null) {
             for (URI file : files) {
-                BufferedReader reader = new BufferedReader(new FileReader(new File(file.getPath())));
+                BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     //1,北京
                     String[] split = line.split(",");
-                    addreddMap.put(split[0], split[1]);
+                    addressMap.put(split[0], split[1]);
                 }
-
                 reader.close();
             }
         }
@@ -47,14 +45,12 @@ public class MapJoinMapper extends Mapper<LongWritable, Text, Text, NullWritable
         String[] split = line.split(",");
         String id = split[0];
         String name = split[1];
-        int age = Integer.valueOf(split[2]);
-        String address = addreddMap.get(id);
+        int age = Integer.parseInt(split[2]);
+        String address = addressMap.get(id);
 
         if (address != null) {
             String returnStr = "id=" + id + ",name=" + name + ",age=" + age + ",address=" + address;
             context.write(new Text(returnStr), NullWritable.get());
         }
-
-
     }
 }

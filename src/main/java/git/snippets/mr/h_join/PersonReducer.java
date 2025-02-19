@@ -1,4 +1,4 @@
-package git.snippets.mr.join;
+package git.snippets.mr.h_join;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PersonReducer extends Reducer<PersonInfo,PersonInfo,PersonInfo, NullWritable> {
+public class PersonReducer extends Reducer<PersonInfo, PersonInfo, PersonInfo, NullWritable> {
     @Override
     protected void reduce(PersonInfo key, Iterable<PersonInfo> values, Reducer<PersonInfo, PersonInfo, PersonInfo, NullWritable>.Context context) throws IOException, InterruptedException {
         /**
@@ -20,19 +20,19 @@ public class PersonReducer extends Reducer<PersonInfo,PersonInfo,PersonInfo, Nul
         ArrayList<PersonInfo> personList = new ArrayList<>();
         String address = "";
         for (PersonInfo value : values) {
-            System.out.println("key = "+ key);
-            if(value.getFlag().equals("address")){
+            System.out.println("key = " + key);
+            if (value.getFlag().equals("address")) {
                 address = value.getAddress();
             }
-            personList.add(new PersonInfo(value.getId(),value.getName(),value.getAge(),value.getAddress(),null));
-            System.out.println("personList size "+personList.size());
+            personList.add(new PersonInfo(value.getId(), value.getName(), value.getAge(), value.getAddress(), null));
+            System.out.println("personList size " + personList.size());
         }
 
         for (PersonInfo personInfo : personList) {
-            System.out.println("设置地址for循环 = "+ key);
+            System.out.println("设置地址for循环 = " + key);
             personInfo.setAddress(address);
-            if(!personInfo.getName().equals("") && !personInfo.getAddress().equals("")){
-                context.write(personInfo,NullWritable.get());
+            if (!personInfo.getName().isEmpty() && !personInfo.getAddress().isEmpty()) {
+                context.write(personInfo, NullWritable.get());
             }
         }
 

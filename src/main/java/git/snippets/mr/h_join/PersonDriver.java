@@ -1,4 +1,4 @@
-package git.snippets.mr.join;
+package git.snippets.mr.h_join;
 
 import git.snippets.mr.LocalConfigJob;
 import org.apache.hadoop.fs.Path;
@@ -19,8 +19,8 @@ public class PersonDriver {
         job.setJarByClass(PersonDriver.class);
 
         //3.设置Mapper、Reducer对应的类
-        MultipleInputs.addInputPath(job,new Path("./data/persondata.txt"), TextInputFormat.class,PersonMapper.class);
-        MultipleInputs.addInputPath(job,new Path("./data/addressdata.txt"), TextInputFormat.class,AddressMapper.class);
+        MultipleInputs.addInputPath(job, new Path("./data/persondata.txt"), TextInputFormat.class, PersonMapper.class);
+        MultipleInputs.addInputPath(job, new Path("./data/addressdata.txt"), TextInputFormat.class, AddressMapper.class);
 
         job.setReducerClass(PersonReducer.class);
 
@@ -33,13 +33,13 @@ public class PersonDriver {
         job.setOutputValueClass(NullWritable.class);
 
         //6.设置数据输入和输出路径
-        FileOutputFormat.setOutputPath(job,new Path("./tmp/o12"));
+        FileOutputFormat.setOutputPath(job, new Path("./tmp/join/" + System.currentTimeMillis() + "/output"));
 
         //7.运行任务
         boolean success = job.waitForCompletion(true);
-        if(success){
+        if (success) {
             System.out.println("任务执行成功！");
-        }else{
+        } else {
             System.out.println("任务执行失败！");
         }
     }
