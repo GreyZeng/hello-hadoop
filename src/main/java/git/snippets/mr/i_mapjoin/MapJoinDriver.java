@@ -1,4 +1,4 @@
-package git.snippets.mr.mapjoin;
+package git.snippets.mr.i_mapjoin;
 
 import git.snippets.mr.LocalConfigJob;
 import org.apache.hadoop.fs.Path;

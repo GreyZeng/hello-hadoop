@@ -1,4 +1,4 @@
-package git.snippets.mr.mapjoin;
+package git.snippets.mr.i_mapjoin;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
