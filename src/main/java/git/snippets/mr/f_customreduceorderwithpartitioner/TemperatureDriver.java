@@ -22,8 +22,7 @@ public class TemperatureDriver {
 
         //3.设置Mapper、Reducer对应的类
         job.setMapperClass(TemperatureMapper.class);
-        job.setReducerClass(TempertureReducer.class);
-
+        job.setReducerClass(TemperatureReducer.class);
         //4.设置Mapper输出Key,Value类型
         job.setMapOutputKeyClass(Temperature.class);
         job.setMapOutputValueClass(Temperature.class);

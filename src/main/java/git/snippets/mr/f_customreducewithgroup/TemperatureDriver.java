@@ -3,8 +3,6 @@ package git.snippets.mr.f_customreducewithgroup;
 import git.snippets.mr.LocalConfigJob;
 import git.snippets.mr.f_customreduceorderwithpartitioner.Temperature;
 import git.snippets.mr.f_customreduceorderwithpartitioner.TemperatureMapper;
-import git.snippets.mr.f_customreduceorderwithpartitioner.TemperaturePartitioner;
-import git.snippets.mr.f_customreduceorderwithpartitioner.TempertureReducer;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Job;

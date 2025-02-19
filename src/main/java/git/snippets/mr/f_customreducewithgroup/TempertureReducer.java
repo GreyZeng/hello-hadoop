@@ -1,5 +1,6 @@
-package git.snippets.mr.f_customreduceorderwithpartitioner;
+package git.snippets.mr.f_customreducewithgroup;
 
+import git.snippets.mr.f_customreduceorderwithpartitioner.Temperature;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
