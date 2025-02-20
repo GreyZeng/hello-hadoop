@@ -66,7 +66,7 @@
                     </descriptorRefs>
                     <archive> <!-- 归档配置 -->
                         <manifest> <!-- MANIFEST.MF 文件配置 -->
-                            <mainClass>git.snippets.mr.j_runbyyarn.WordCountDriver</mainClass> <!-- 指定主类 -->
+                            <mainClass>git.snippets.mr.k_runonyarnbysnappy.WordCountDriver</mainClass> <!-- 指定主类 -->
                         </manifest>
                     </archive>
                 </configuration>
